@@ -1,4 +1,4 @@
-package com.example.gymlog.Database;
+package com.example.gymlog.database;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,16 +7,22 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.gymlog.Database.entities.GymLog;
+import com.example.gymlog.database.entities.GymLog;
 import com.example.gymlog.MainActivity;
+import com.example.gymlog.database.entities.User;
+import com.example.gymlog.database.typeConverters.LocalDateTypeConverter;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {GymLog.class}, version = 1, exportSchema = false)
+@TypeConverters(LocalDateTypeConverter.class)
+@Database(entities = {GymLog.class, User.class}, version = 1, exportSchema = false)
 public abstract class GymLogDatabase extends RoomDatabase {
+    public static final String USER_TABLE = "usertable";
     private static final String DATABASE_NAME = "gymLogDatabase";
     public static final String gymLogTable = "gymLogTable";
 
@@ -46,9 +52,20 @@ public abstract class GymLogDatabase extends RoomDatabase {
             super.onCreate(db);
             Log.i(MainActivity.TAG, "Database Created!");
 
-            //TODO: add databaseWriteExecutor.execute(() -> {...}
+            databaseWriteExecutor.execute(() -> {
+                UserDAO dao = INSTANCE.userDAO();
+                dao.deleteAll();
+                User admin = new User("admin1", "admin 1");
+                admin.setAdmin(true);
+                dao.insert(admin);
+
+                User testUser1 = new User("testUser1", "testUser1");
+                dao.insert(testUser1);
+            });
         }
     };
 
     public abstract GymLogDAO gymLogDAO();
+
+    public abstract UserDAO userDAO();
 }

@@ -106,7 +106,7 @@
         />
 
     <Button
-        android:layout_height="205dp"
+        android:layout_height="125dp"
         android:layout_marginTop="16dp"
         android:layout_width="390dp"
         android:text="@string/log"
