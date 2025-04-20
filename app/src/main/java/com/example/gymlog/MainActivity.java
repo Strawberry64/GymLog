@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +28,6 @@ import com.example.gymlog.databinding.ActivityMainBinding;
 import com.example.gymlog.viewholders.GymLogAdapter;
 import com.example.gymlog.viewholders.GymLogViewModel;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.gymlog.MAIN_ACTIVITY_USER_ID";
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public static final String TAG = "DAC_GYMLOG";
+    public static final String TAG = "AOG_GYMLOG";
     String mExercise ="";
     double mWeight = 0;
     int loggedInUserId = -1;
@@ -98,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 //updateDisplay();
             }
         });
-
         //todo
 //        binding.exerciseInputEditText.setOnClickListener(new View.OnClickListener(){
 //            @Override
@@ -114,14 +112,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void loginUser(Bundle savedInstanceState) {
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-
-
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_userId_key), LOGGED_OUT);
 
         if(loggedInUserId == LOGGED_OUT & savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)){
-            loggedInUserId = sharedPreferences.getInt(SHARED_PREFERENCE_USERID_KEY, LOGGED_OUT);
+            loggedInUserId = sharedPreferences.getInt(SAVED_INSTANCE_STATE_USERID_KEY, LOGGED_OUT);
         }
         if(loggedInUserId == LOGGED_OUT){
             loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
@@ -144,7 +140,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_USERID_KEY, Context.MODE_PRIVATE);
+        outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY, loggedInUserId);
+
+//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_USERID_KEY, Context.MODE_PRIVATE);
         updateSharedPreference();
     }
 
@@ -166,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         item.setTitle(user.getUsername());
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
 
                 showLogoutDialog();
 
@@ -201,10 +199,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void logout() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFERENCE_USERID_KEY, Context.MODE_PRIVATE);
-        SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
-        sharedPrefEditor.putInt(SHARED_PREFERENCE_USERID_KEY, LOGGED_OUT);
-        sharedPrefEditor.apply();
+        loggedInUserId = LOGGED_OUT;
+        updateSharedPreference();
 
         getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
 

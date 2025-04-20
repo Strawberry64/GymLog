@@ -14,7 +14,7 @@ public class GymLogViewHolder extends RecyclerView.ViewHolder {
     private GymLogViewHolder(View gymLogView){
         super(gymLogView);
 
-        gymLogViewItem = gymLogView.findViewById(R.id.logDisplayRecyclerView);
+        gymLogViewItem = gymLogView.findViewById(R.id.recyclerItemTextView);
 
 
     }

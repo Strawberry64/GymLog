@@ -15,7 +15,7 @@ public class GymLogAdapter extends ListAdapter<GymLog, GymLogViewHolder> {
 
     @NonNull
     @Override
-    public GymLogViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public GymLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         return GymLogViewHolder.create(parent);
     }
 

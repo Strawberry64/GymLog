@@ -38,8 +38,7 @@ public class GymLogRepository {
            new Callable<GymLogRepository>() {
                @Override
                public GymLogRepository call() throws Exception {
-                   repository = new GymLogRepository(application);
-                   return repository;
+                   return new GymLogRepository(application);
                }
            }
        );
@@ -97,21 +96,21 @@ public class GymLogRepository {
         return gymLogDAO.getRecordsByUserIdLiveData(loggedInUsedId);
     }
 
-    @Deprecated
-    public ArrayList<GymLog> getAllLogsByUserId(int loggedInUserId) {
-        Future<ArrayList<GymLog>> future = GymLogDatabase.databaseWriteExecutor.submit(
-                new Callable<ArrayList<GymLog>>() {
-                    @Override
-                    public ArrayList<GymLog> call() throws Exception {
-                        return (ArrayList<GymLog>)gymLogDAO.getRecordsByUserId(loggedInUserId);
-                    }
-                }
-        );
-        try {
-            return future.get();
-        } catch (InterruptedException | ExecutionException e){
-            Log.i(MainActivity.TAG,"Problem when getting all records.");
-        }
-        return null;
-    }
+//    @Deprecated
+//    public ArrayList<GymLog> getAllLogsByUserId(int loggedInUserId) {
+//        Future<ArrayList<GymLog>> future = GymLogDatabase.databaseWriteExecutor.submit(
+//                new Callable<ArrayList<GymLog>>() {
+//                    @Override
+//                    public ArrayList<GymLog> call() throws Exception {
+//                        return (ArrayList<GymLog>)gymLogDAO.getRecordsByUserId(loggedInUserId);
+//                    }
+//                }
+//        );
+//        try {
+//            return future.get();
+//        } catch (InterruptedException | ExecutionException e){
+//            Log.i(MainActivity.TAG,"Problem when getting all records.");
+//        }
+//        return null;
+//    }
 }

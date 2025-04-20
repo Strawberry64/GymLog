@@ -65,14 +65,9 @@ public class LogInActivity extends AppCompatActivity {
             if(user != null){
                 String password = binding.passwordLoginEditText.getText().toString();
                 if(password.equals(user.getPassword())){
-//                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(MainActivity.SHARED_PREFERENCE_USERID_KEY, Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
-//                    sharedPrefEditor.putInt(MainActivity.SHARED_PREFERENCE_USERID_VALUE, user.getId());
-//                    sharedPrefEditor.apply();
+
                     startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getId()));
 
-//                    Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getId());
-//                    startActivity(intent);
                 }
                 else{
                     toastMaker("Invalid Password");
@@ -86,18 +81,7 @@ public class LogInActivity extends AppCompatActivity {
             }
 
         });
-//        if(user != null){
-//            String password = binding.passwordLoginEditText.getText().toString();
-//            if(password.equals(user.getPassword())){
-//                return;
-//            }
-//            else{
-//                toastMaker("Invalid Password");
-//                return;
-//            }
-//        }
-//        toastMaker(String.format("No %s found", username));
-        //return false;
+
     }
 
     private void toastMaker(String message) {
