@@ -7,48 +7,48 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
 
-        android:id="@+id/logDisplayTextView"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dip"
-        android:layout_width="390dp"
-        android:padding="8dp"
-        android:text="Hello World!"
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/logDisplayRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"
+        android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
+        tools:listitem="@layout/gymlog_recycler_item"
 
         />
+
 
     <TextView
 
         android:id="@+id/exerciseLabelTextView"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_width="100dp"
         android:text="@string/exercise"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logDisplayTextView"
+        app:layout_constraintTop_toBottomOf="@id/logDisplayRecyclerView"
 
 
         />
 
     <EditText
 
-        android:hint="@string/enter_an_exercise"
         android:id="@+id/exerciseInputEditText"
-        android:inputType="textAutoComplete"
+        android:layout_width="273dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
-        android:layout_width="273dp"
+        android:hint="@string/enter_an_exercise"
+        android:inputType="textAutoComplete"
         android:padding="8dp"
         app:layout_constraintBaseline_toBaselineOf="@id/exerciseLabelTextView"
-        app:layout_constraintStart_toEndOf="@id/exerciseLabelTextView"
-        />
+        app:layout_constraintStart_toEndOf="@id/exerciseLabelTextView" />
 
 
     <TextView
@@ -66,17 +66,15 @@
 
     <EditText
 
-        android:hint="@string/enter_a_weight"
         android:id="@+id/weightInputEditText"
-        android:inputType="number|numberDecimal"
+        android:layout_width="273dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
-        android:layout_width="273dp"
+        android:hint="@string/enter_a_weight"
+        android:inputType="number|numberDecimal"
         android:padding="8dp"
         app:layout_constraintBaseline_toBaselineOf="@id/weightLabelTextView"
-        app:layout_constraintStart_toEndOf="@id/weightLabelTextView"
-        />
-
+        app:layout_constraintStart_toEndOf="@id/weightLabelTextView" />
 
 
     <TextView
@@ -94,30 +92,28 @@
 
     <EditText
 
-        android:hint="@string/enter_reps"
         android:id="@+id/repInputEditText"
-        android:inputType="number|numberDecimal"
+        android:layout_width="273dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
-        android:layout_width="273dp"
+        android:hint="@string/enter_reps"
+        android:inputType="number|numberDecimal"
         android:padding="8dp"
         app:layout_constraintBaseline_toBaselineOf="@id/repLabelTextView"
-        app:layout_constraintStart_toEndOf="@id/repLabelTextView"
-        />
+        app:layout_constraintStart_toEndOf="@id/repLabelTextView" />
 
     <Button
+        android:id="@+id/logButton"
+        android:layout_width="390dp"
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
-        android:layout_width="390dp"
         android:text="@string/log"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/repInputEditText"
-        android:id="@+id/logButton"
 
         />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
